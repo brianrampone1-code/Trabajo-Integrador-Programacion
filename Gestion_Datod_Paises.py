@@ -266,7 +266,7 @@ def mostrar_lista_paises(paises):
         paises (list): Lista de países a mostrar
     """
     if not paises:
-        print("\n❌ No se encontraron países.")
+        print("\n No se encontraron países.")
         return
     
     print(f"\n{'=' * 90}")
@@ -289,7 +289,7 @@ def mostrar_estadisticas(paises):
         paises (list): Lista de países
     """
     if not paises:
-        print("\n❌ No hay datos para calcular estadísticas.")
+        print("\n No hay datos para calcular estadísticas.")
         return
     
     print("\n" + "=" * 70)
@@ -300,17 +300,17 @@ def mostrar_estadisticas(paises):
     mayor_pob = pais_con_mayor_poblacion(paises)
     menor_pob = pais_con_menor_poblacion(paises)
     
-    print(f"\n📊 POBLACIÓN:")
+    print(f"\n POBLACIÓN:")
     print(f"   • Mayor población: {mayor_pob['nombre']} ({mayor_pob['poblacion']:,} hab.)")
     print(f"   • Menor población: {menor_pob['nombre']} ({menor_pob['poblacion']:,} hab.)")
     print(f"   • Promedio: {promedio_poblacion(paises):,.0f} habitantes")
     
     # Promedio de superficie
-    print(f"\n🗺️  SUPERFICIE:")
+    print(f"\n  SUPERFICIE:")
     print(f"   • Promedio: {promedio_superficie(paises):,.0f} km²")
     
     # Cantidad por continente
-    print(f"\n🌍 DISTRIBUCIÓN POR CONTINENTE:")
+    print(f"\n DISTRIBUCIÓN POR CONTINENTE:")
     conteo = cantidad_por_continente(paises)
     for continente, cantidad in sorted(conteo.items()):
         print(f"   • {continente}: {cantidad} país(es)")
@@ -337,10 +337,10 @@ def leer_entero(mensaje, minimo=None, maximo=None):
     while True:
         valor = int(input(mensaje))
         if minimo is not None and valor < minimo:
-            print(f"❌ El valor debe ser al menos {minimo}")
+            print(f" El valor debe ser al menos {minimo}")
             continue
         if maximo is not None and valor > maximo:
-            print(f"❌ El valor no puede ser mayor que {maximo}")
+            print(f" El valor no puede ser mayor que {maximo}")
             continue
         return valor
 
@@ -352,7 +352,7 @@ def menu_principal():
     print("\n" + "=" * 70)
     print("           SISTEMA DE GESTIÓN DE DATOS DE PAÍSES")
     print("=" * 70)
-    print("\n📋 MENÚ PRINCIPAL:")
+    print("\n MENÚ PRINCIPAL:")
     print("  1. Buscar país por nombre")
     print("  2. Filtrar países por continente")
     print("  3. Filtrar países por rango de población")
@@ -376,19 +376,19 @@ def ejecutar_opcion(opcion, paises):
     """
     if opcion == 1:
         # Buscar país por nombre
-        nombre = input("\n🔍 Ingrese el nombre del país a buscar: ")
+        nombre = input("\n Ingrese el nombre del país a buscar: ")
         resultados = buscar_pais_por_nombre(paises, nombre)
         mostrar_lista_paises(resultados)
         
     elif opcion == 2:
         # Filtrar por continente
-        continente = input("\n🌍 Ingrese el continente: ")
+        continente = input("\n Ingrese el continente: ")
         resultados = filtrar_por_continente(paises, continente)
         mostrar_lista_paises(resultados)
         
     elif opcion == 3:
         # Filtrar por rango de población
-        print("\n👥 Filtrar por rango de población:")
+        print("\n Filtrar por rango de población:")
         pob_min = leer_entero("   Población mínima: ", minimo=0)
         pob_max = leer_entero("   Población máxima: ", minimo=pob_min)
         resultados = filtrar_por_rango_poblacion(paises, pob_min, pob_max)
@@ -396,7 +396,7 @@ def ejecutar_opcion(opcion, paises):
         
     elif opcion == 4:
         # Filtrar por rango de superficie
-        print("\n🗺️  Filtrar por rango de superficie:")
+        print("\n Filtrar por rango de superficie:")
         sup_min = leer_entero("   Superficie mínima (km²): ", minimo=0)
         sup_max = leer_entero("   Superficie máxima (km²): ", minimo=sup_min)
         resultados = filtrar_por_rango_superficie(paises, sup_min, sup_max)
@@ -404,7 +404,7 @@ def ejecutar_opcion(opcion, paises):
         
     elif opcion == 5:
         # Ordenar por nombre
-        print("\n📝 Ordenar por nombre:")
+        print("\n Ordenar por nombre:")
         print("  1. Ascendente (A-Z)")
         print("  2. Descendente (Z-A)")
         orden = leer_entero("Seleccione: ", minimo=1, maximo=2)
@@ -413,7 +413,7 @@ def ejecutar_opcion(opcion, paises):
         
     elif opcion == 6:
         # Ordenar por población
-        print("\n👥 Ordenar por población:")
+        print("\n Ordenar por población:")
         print("  1. Ascendente (menor a mayor)")
         print("  2. Descendente (mayor a menor)")
         orden = leer_entero("Seleccione: ", minimo=1, maximo=2)
@@ -422,7 +422,7 @@ def ejecutar_opcion(opcion, paises):
         
     elif opcion == 7:
         # Ordenar por superficie
-        print("\n🗺️  Ordenar por superficie:")
+        print("\n  Ordenar por superficie:")
         print("  1. Ascendente (menor a mayor)")
         print("  2. Descendente (mayor a menor)")
         orden = leer_entero("Seleccione: ", minimo=1, maximo=2)
@@ -446,16 +446,16 @@ def main():
     """
     Función principal del programa.
     """
-    print("\n" + "🌍" * 35)
+    print("\n" + "" * 35)
     print("  Bienvenido al Sistema de Gestión de Datos de Países")
-    print("🌍" * 35 + "\n")
+    print("" * 35 + "\n")
     
     # Cargar datos desde CSV
     nombre_archivo = input("Ingrese el nombre del archivo CSV (ej: paises.csv): ")
     paises = cargar_paises_desde_csv(nombre_archivo)
     
     if not paises:
-        print("\n❌ No se pudieron cargar los datos. El programa terminará.")
+        print("\n No se pudieron cargar los datos. El programa terminará.")
         return
     
     # Bucle principal del programa
@@ -464,7 +464,7 @@ def main():
         opcion = leer_entero("\n➤ Seleccione una opción: ", minimo=0, maximo=9)
         
         if opcion == 0:
-            print("\n👋 ¡Gracias por usar el sistema! Hasta luego.\n")
+            print("\n ¡Gracias por usar el sistema! Hasta luego.\n")
             break
         
         ejecutar_opcion(opcion, paises)
