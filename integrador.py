@@ -23,21 +23,34 @@ def cargar_paises_desde_csv(nombre_archivo):
     """
     paises = []
     
-    with open(nombre_archivo, 'r', encoding='utf-8') as archivo:
-        lector = csv.DictReader(archivo)
+    try:
+        with open(nombre_archivo, 'r', encoding='utf-8') as archivo:
+            lector = csv.DictReader(archivo)
+            
+            for linea_numero, fila in enumerate(lector, start=2):
+                try:
+                    # Validar y convertir datos
+                    pais = {
+                        'nombre': fila['nombre'].strip(),
+                        'poblacion': int(fila['poblacion']),
+                        'superficie': int(fila['superficie']),
+                        'continente': fila['continente'].strip()
+                    }
+                    paises.append(pais)
+                    
+                except (ValueError, KeyError) as e:
+                    print(f"⚠️  Error en línea {linea_numero}: {e}")
+                    continue
+                    
+        print(f"✓ Se cargaron {len(paises)} países correctamente.\n")
+        return paises
         
-        for linea_numero, fila in enumerate(lector, start=2):
-            # Validar y convertir datos
-            pais = {
-                'nombre': fila['nombre'].strip(),
-                'poblacion': int(fila['poblacion']),
-                'superficie': int(fila['superficie']),
-                'continente': fila['continente'].strip()
-            }
-            paises.append(pais)
-                
-    print(f"✓ Se cargaron {len(paises)} países correctamente.\n")
-    return paises
+    except FileNotFoundError:
+        print(f"❌ Error: No se encontró el archivo '{nombre_archivo}'")
+        return []
+    except Exception as e:
+        print(f"❌ Error inesperado al cargar el archivo: {e}")
+        return []
 
 
 # ============================================================================
@@ -335,14 +348,17 @@ def leer_entero(mensaje, minimo=None, maximo=None):
         int: Número entero validado
     """
     while True:
-        valor = int(input(mensaje))
-        if minimo is not None and valor < minimo:
-            print(f"❌ El valor debe ser al menos {minimo}")
-            continue
-        if maximo is not None and valor > maximo:
-            print(f"❌ El valor no puede ser mayor que {maximo}")
-            continue
-        return valor
+        try:
+            valor = int(input(mensaje))
+            if minimo is not None and valor < minimo:
+                print(f"❌ El valor debe ser al menos {minimo}")
+                continue
+            if maximo is not None and valor > maximo:
+                print(f"❌ El valor no puede ser mayor que {maximo}")
+                continue
+            return valor
+        except ValueError:
+            print("❌ Por favor, ingrese un número entero válido.")
 
 
 def menu_principal():
